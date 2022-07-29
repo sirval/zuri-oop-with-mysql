@@ -48,7 +48,7 @@ class FormController extends UserAuth{
                 //unpack all data for updating password
                 $this->email = $_POST['email'];
                 $this->password = $_POST['password'];
-                $this->updateUser($this->email, $this->password);
+                $this->updateUser($this->password, $this->email);
                 break;
             case isset($_GET['all']):
                 //unpack all data for getting all users

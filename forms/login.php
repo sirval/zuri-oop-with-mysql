@@ -30,12 +30,14 @@
             <?php 
            
             if(isset($_GET['message']) == 'success' ){
-                echo "<div class='alert alert-success'>Registration Successful. Please Login</div>";
+                echo "<div class='alert alert-success'>Successful. Please Login</div>";
             }elseif(isset($_GET['message']) == 'error1') {
                 echo "<div class='alert alert-danger'>Invalid Email Or Password</div>";
-            }else {
+            }
+            else {
                 
             }
+
             ?>
             <div class="form-row flex justify-content-center">
                 <div class="form-group">

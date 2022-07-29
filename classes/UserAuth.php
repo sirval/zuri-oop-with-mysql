@@ -47,7 +47,7 @@ class UserAuth extends Dbh{
 
     public function getUser($username){
         $conn = $this->db->connect();
-        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $sql = "SELECT * FROM Students WHERE username = '$username'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             return $result->fetch_assoc();
@@ -106,11 +106,16 @@ class UserAuth extends Dbh{
         }
     }
 
-    public function updateUser($username, $password){
+    public function updateUser($password, $username){
         $conn = $this->db->connect();
-        $sql = "UPDATE users SET password = '$password' WHERE username = '$username'";
+        // echo $password.'  ' .$username; exit;
+        $sql = "UPDATE `Students` SET `password` = '$password' WHERE `email` = '$username'";
         if($conn->query($sql) === TRUE){
-            header("Location: ../dashboard.php?update=success");
+            //check if user is logged in and unset session
+            if ($_SESSION['email'] || $_SESSION['username']) {
+                session_destroy();
+            }
+            header("Location: ./forms/login.php?message=success");
         } else {
             header("Location: forms/resetpassword.php?error=1");
         }
@@ -118,7 +123,7 @@ class UserAuth extends Dbh{
 
     public function getUserByUsername($username){
         $conn = $this->db->connect();
-        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $sql = "SELECT * FROM Students WHERE username = '$username'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             return $result->fetch_assoc();
@@ -145,7 +150,7 @@ class UserAuth extends Dbh{
 
     public function checkEmailExist($email){
         $conn = $this->db->connect();
-        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $sql = "SELECT * FROM Students WHERE email = '$email'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
            while ($get_user_email = $result->fetch_array()) {
